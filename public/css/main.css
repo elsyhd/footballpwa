@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #222;
+    font-family: 'Roboto', sans-serif
+}
+
+/* Global */
+
+.font-bold{
+    font-weight: bold;
+}
+.font-bolder{
+    font-weight: bolder;
+}
+.mt-1 {
+    margin-top: 10px;
+}
+.mt-2 {
+    margin-top: 20px;
+}
+.mt-3 {
+    margin-top: 30px;
+}
+.mt-4{
+    margin-top: 40px;
+}
+.mt-5{
+    margin-top: 50px;
+}
+
+.mb-1 {
+    margin-bottom: 10px;
+}
+.mb-2 {
+    margin-bottom: 20px;
+}
+.mb-3 {
+    margin-bottom: 30px;
+}
+.mb-4 {
+    margin-bottom: 40px;
+}
+.mb-5 {
+    margin-bottom: 50px;
+}
+
+
+.site-title{
+    font-weight: 600;
+}
+
+
+.parallax-container{
+    height: 300px !important;
+}
+
+.latest-match .score li, .latest-result .score li {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 6px;
+}
+
+.latest-match .club-title li, .latest-result .club-title li {
+    display: inline-block;
+    font-weight: 700;
+}
+
+.latest-match .score li img, .latest-result .score li img {
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+}
+
+.latest-match .date, .latest-match .stadium, .latest-result .date, .latest-result .stadium {
+    padding: 0;
+    margin: 0;
+}
+
+
+.latest-match, .latest-result, .result .head {
+    text-align: center;
+}
+
+
+.save-del{
+    padding: 30px;
+}

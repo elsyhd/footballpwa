@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>MatchBall</title>
+        <meta name="theme-color" content="#40424a" />
+        <meta name="description" content="Football Information" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/materialize.min.css" />
+        <meta name="theme-color" content="#607d8b" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="apple-touch-icon" href="images/icon_192.png">
+        <link rel="manifest" href="/manifest.json" />
+      </head>
+      <body>
+           <!-- Navigasi -->
+        <nav class="blue-grey lighten-1" role="navigation">
+          <div class="nav-wrapper container">
+            <a href="#" class="brand-logo site-title center" id="logo-container">Match</a>
+            <a href="./index.html#watch-plan">
+              <i class="material-icons">arrow_back</i>
+            </a>
+            <ul class="topnav right hide-on-med-and-down"></ul>
+            <ul class="sidenav" id="nav-mobile"></ul>
+          </div>
+        </nav>
+        <!-- Akhir Navigasi -->
+        <div class="container" id="body-content">
+            <div class="row mt-3">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="center-align" id="preloader">
+                            <div class="preloader-wrapper big active">
+                                <div class="spinner-layer spinner-blue">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 id="matchDay" class="center-align">Matchday: </h5>
+                        <div id="kickOff" class="center-align">Kick Off: </div>
+            
+                        <div class="row" style="margin:20px">
+                          <div class="col s5 right-align truncate">
+                            <span id="homeTeamName" class="font-bold blue-grey-text text-darken-2"></span>
+                          </div>
+                          <div class="col s2 center-align">
+                            VS
+                          </div>
+                          <div class="col s5 left-align truncate">
+                            <span id="awayTeamName" class="font-bold blue-grey-text text-darken-2"></span>
+                          </div>
+                        </div>
+                        <div id="venue" class="center-align"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="fixed-action-btn" id="save">
+        <a class="btn-floating btn-large blue-grey" >
+        <i id="save-del" class="large material-icons">event_note</i>
+        </a>
+    </div>
+
+ 
+    <script src="js/materialize.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+
+    <script src="js/idb.js"></script>
+    <script src="js/db.js"></script>
+   
+
+    <script>
+        if (!('serviceWorker' in navigator)) {
+            console.log("Service worker tidak didukung browser ini.");
+        } else {
+            registerServiceWorker();
+        }
+
+        function registerServiceWorker() {
+            return navigator.serviceWorker.register('service-worker.js')
+                .then(function (registration) {
+                    console.log('Registrasi service worker berhasil.');
+                    return registration;
+                })
+                .catch(function (err) {
+                    console.error('Registrasi service worker gagal.', err);
+                });
+        }
+       
+            document.addEventListener("DOMContentLoaded", function () {
+
+                var urlParams = new URLSearchParams(window.location.search);
+                var id = Number(urlParams.get("id"));
+                var saveDel = document.getElementById("save-del");
+                
+                var isFavorit = false;
+                cekData(id).then((msg) => {
+                console.log("statusData: resolve = " + msg)
+                document.getElementById("save-del").innerHTML = "delete"
+                getDetailMatch("saved-match")
+                isFavorit = true
+                }).catch((msg) => {
+                    console.log("statusData: reject = " + msg)
+                    document.getElementById("save-del").innerHTML = "event_note"
+                    getDetailMatch()
+                    isFavorit = false
+                    })
+
+                var saveDel = document.getElementById("save-del");
+
+                saveDel.onclick = function () {
+                console.log("Tombol FAB di klik.");
+                if (isFavorit) {
+                    deleteSavedMatch(id);
+                    isFavorit = false
+                } else {
+                    item = getDetailMatch();
+                    item.then(function (data) {
+                    saveForLater(data);
+                    });
+                    isFavorit = true
+                }
+                };
+                });
+
+            
+    </script>
+</body>
+</html>
